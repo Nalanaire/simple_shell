@@ -1,4 +1,4 @@
-#include "simple_shell.h"
+#include "header.h"
 
 /**
  * _alias - the alias builtin (man alias)

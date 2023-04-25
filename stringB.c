@@ -1,4 +1,4 @@
-#include "simple_shell.h"
+#include "header.h"
 
 /**
  * str_cpy - copies a string
@@ -35,7 +35,7 @@ char *str_dup(const char *str)
 		return (NULL);
 	while (*str++)
 		length++;
-	ret = malloc(sizeof(char) * (length + 1));
+	ret = _malloc(sizeof(char) * (length + 1));
 	if (!ret)
 		return (NULL);
 	for (length++; length--;)

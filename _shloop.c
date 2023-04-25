@@ -1,4 +1,4 @@
-#include "simple_shell.h"
+#include "header.h"
 
 /**
  * _find_cmd - finds a command in PATH
@@ -22,21 +22,21 @@ void _find_cmd(info_t *info)
 	if (!k)
 		return;
 
-	path = find_path(info, _getenv(info, "PATH="), info->argv[0]);
+	path = _findpath(info, _getenv(info, "PATH="), info->argv[0]);
 	if (path)
 	{
 		info->path = path;
-		fork_cmd(info);
+		_fork_cmd(info);
 	}
 	else
 	{
 		if ((interactive(info) || _getenv(info, "PATH=")
-			|| info->argv[0][0] == '/') && is_cmd(info, info->argv[0]))
-			fork_cmd(info);
+			|| info->argv[0][0] == '/') && _iscmd(info, info->argv[0]))
+			_fork_cmd(info);
 		else if (*(info->arg) != '\n')
 		{
 			info->status = 127;
-			print_error(info, "not found\n");
+			_print_error(info, "not found\n");
 		}
 	}
 }
@@ -75,7 +75,7 @@ void _fork_cmd(info_t *info)
 		{
 			info->status = WEXITSTATUS(info->status);
 			if (info->status == 126)
-				print_error(info, "Permission denied\n");
+				_print_error(info, "Permission denied\n");
 		}
 	}
 }
@@ -95,21 +95,21 @@ int _hsh(info_t *info, char **av)
 	{
 		clear_info(info);
 		if (interactive(info))
-			_puts("$ ");
-		_eputchar(BUF_FLUSH);
-		r = get_input(info);
+			puts("$ ");
+		rputchar(BUF_FLUSH);
+		r = _get_input(info);
 		if (r != -1)
 		{
 			set_info(info, av);
-			builtin_ret = find_builtin(info);
+			builtin_ret = _find_builtin(info);
 			if (builtin_ret == -1)
-				find_cmd(info);
+				_find_cmd(info);
 		}
 		else if (interactive(info))
 			_putchar('\n');
 		free_info(info, 0);
 	}
-	write_history(info);
+	type_history(info);
 	free_info(info, 1);
 	if (!interactive(info) && info->status)
 		exit(info->status);
@@ -134,19 +134,19 @@ int _find_builtin(info_t *info)
 {
 	int i, built_in_ret = -1;
 	builtin_table builtintbl[] = {
-		{"exit", _myexit},
-		{"env", _myenv},
-		{"help", _myhelp},
-		{"history", _myhistory},
-		{"setenv", _mysetenv},
-		{"unsetenv", _myunsetenv},
-		{"cd", _mycd},
-		{"alias", _myalias},
+		{"exit", exit},
+		{"env", _env},
+		{"help", help},
+		{"history", _history},
+		{"setenv", _setenv},
+		{"unsetenv", _unsetenv},
+		{"cd", cd},
+		{"alias", _alias},
 		{NULL, NULL}
 	};
 
 	for (i = 0; builtintbl[i].type; i++)
-		if (_strcmp(info->argv[0], builtintbl[i].type) == 0)
+		if (str_cmp(info->argv[0], builtintbl[i].type) == 0)
 		{
 			info->line_count++;
 			built_in_ret = builtintbl[i].func(info);

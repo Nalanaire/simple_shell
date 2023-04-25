@@ -1,4 +1,4 @@
-#include "simple_shell.h"
+#include "header.h"
 
 /**
  * type_history - creates a file, or appends to an existing file
@@ -29,14 +29,14 @@ int type_history(info_t *info)
 }
 
 /**
- * create-history_list - entry to a history linked list
+ * _create_history_list - entry to a history linked list
  * @info: potential arguments.
  * @buf: buffer
  * @linecount: history linecount, count
  *
  * Return: Always 0
  */
-int create-history_list(info_t *info, char *buf, int linecount)
+int _create_history_list(info_t *info, char *buf, int linecount)
 {
 	list_t *node = NULL;
 
@@ -50,12 +50,12 @@ int create-history_list(info_t *info, char *buf, int linecount)
 }
 
 /**
- * find-history_file - find the history file
+ * _find_history_file - find the history file
  * @info: parameter
  * Return: allocated string containg history file
  */
 
-char *find-history_file(info_t *info)
+char *_find_history_file(info_t *info)
 {
 	char *buf, *dir;
 

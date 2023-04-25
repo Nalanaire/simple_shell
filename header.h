@@ -111,7 +111,7 @@ typedef struct builtin
 	int (*func)(info_t *);
 } builtin_table;
 
-/* _shellloop.c */
+/* _shloop.c */
 void _find_cmd(info_t *);
 void _fork_cmd(info_t *);
 int _hsh(info_t *, char **);
@@ -188,10 +188,10 @@ int _unsetenv(info_t *, char *);
 int _setenv(info_t *, char *, char *);
 
 /* history.c */
-char *find-history_file(info_t *info);
+char *_find_history_file(info_t *info);
 int type_history(info_t *info);
 int do_history(info_t *info);
-int create-history_list(info_t *info, char *buf, int linecount);
+int _create_history_list(info_t *info, char *buf, int linecount);
 int recount_history(info_t *info);
 
 /* listsA.c */
@@ -202,11 +202,11 @@ int delete_node_at_index(list_t **, unsigned int);
 void free_list(list_t **);
 
 /* listsB.c */
-char **list-to_strings(list_t *);
+char **_list_to_strings(list_t *);
 size_t _list_len(const list_t *);
 size_t _print_list(const list_t *);
-list_t *node-starts_with(list_t *, char *, char);
-ssize_t get-node_index(list_t *, list_t *);
+list_t *_node_starts_with(list_t *, char *, char);
+ssize_t _get_node_index(list_t *, list_t *);
 
 /* vars.c */
 void check_chain(info_t *, char *, size_t *, size_t, size_t);

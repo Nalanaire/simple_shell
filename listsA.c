@@ -1,4 +1,4 @@
-#include "simple_shell.h"
+#include "header.h"
 
 /**
  * add_node_end -node added at the end
@@ -19,11 +19,11 @@ list_t *add_node_end(list_t **head, const char *str, int num)
 	new_node = malloc(sizeof(list_t));
 	if (!new_node)
 		return (NULL);
-	_memset((void *)new_node, 0, sizeof(list_t));
+	memset((void *)new_node, 0, sizeof(list_t));
 	new_node->num = num;
 	if (str)
 	{
-		new_node->str = _strdup(str);
+		new_node->str = str_dup(str);
 		if (!new_node->str)
 		{
 			free(new_node);
@@ -79,14 +79,14 @@ list_t *add_node(list_t **head, const char *str, int num)
 
 	if (!head)
 		return (NULL);
-	new_head = malloc(sizeof(list_t));
+	new_head = _malloc(sizeof(list_t));
 	if (!new_head)
 		return (NULL);
-	_memset((void *)new_head, 0, sizeof(list_t));
+	memset((void *)new_head, 0, sizeof(list_t));
 	new_head->num = num;
 	if (str)
 	{
-		new_head->str = _strdup(str);
+		new_head->str = str_dup(str);
 		if (!new_head->str)
 		{
 			free(new_head);
@@ -110,8 +110,8 @@ size_t print_list_str(const list_t *h)
 
 	while (h)
 	{
-		_puts(h->str ? h->str : "(nil)");
-		_puts("\n");
+		puts(h->str ? h->str : "(nil)");
+		puts("\n");
 		h = h->next;
 		i++;
 	}
