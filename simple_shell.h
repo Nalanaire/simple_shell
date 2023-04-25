@@ -143,7 +143,7 @@ char *_strdup(const char *);
 void _puts(char *);
 int _putchar(char);
 
-/* exits.c */
+/* exit.c */
 char *_strncpy(char *, char *, int);
 char *_strncat(char *, char *, int);
 char *_strchr(char *, char);
@@ -216,9 +216,11 @@ int replace_vars(info_t *);
 int replace_string(char **, char *);
 
 /* getline.c */
-ssize_t get_input(info_t *);
-int _getline(info_t *, char **, size_t *);
-void sigintHandler(int);
+ssize_t _get_input(info_t *);
+int getline(info_t *, char **, size_t *);
+void _siginthandler(int);
+ssize_t _read_buf(info_t *info, char *buf, size_t *i);
+ssize_t _input_buf(info_t *info, char **buf, size_t *len);
 
 /* getinfo.c */
 void clear_info(info_t *);
