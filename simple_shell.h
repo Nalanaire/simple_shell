@@ -125,7 +125,7 @@ char *find_path(info_t *, char *, char *);
 /* _loophsh.c */
 int loophsh(char **);
 
-/* errors.c */
+/* errors0.c */
 void rputs(char *);
 int rputchar(char);
 int putfd(char c, int fd);
@@ -166,12 +166,12 @@ int is_delim(char, char *);
 int _isalpha(int);
 int _atoi(char *);
 
-/* errors1.c */
-int _erratoi(char *);
-void print_error(info_t *, char *);
-int print_d(int, int);
-char *convert_number(long int, int, int);
-void remove_comments(char *);
+/* errorsA.c */
+int rratoi(char *);
+void _print_error(info_t *, char *);
+int print_j(int, int);
+char *_convert_numb(long int, int, int);
+void delete_comments(char *);
 
 /* builtin.c */
 int exit(info_t *);
