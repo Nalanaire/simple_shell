@@ -126,10 +126,10 @@ char *find_path(info_t *, char *, char *);
 int loophsh(char **);
 
 /* errors.c */
-void _eputs(char *);
-int _eputchar(char);
-int _putfd(char c, int fd);
-int _putsfd(char *str, int fd);
+void rputs(char *);
+int rputchar(char);
+int putfd(char c, int fd);
+int putsfd(char *str, int fd);
 
 /* string.c */
 int _strlen(char *);
@@ -227,8 +227,8 @@ void free_info(info_t *, int);
 
 /* environ.c */
 char *_getenv(info_t *, const char *);
-int _myenv(info_t *);
-int _mysetenv(info_t *);
-int _myunsetenv(info_t *);
-int populate_env_list(info_t *);
+int _env(info_t *);
+int _setenv(info_t *);
+int _unsetenv(info_t *);
+int occupy_env_list(info_t *);
 #endif
