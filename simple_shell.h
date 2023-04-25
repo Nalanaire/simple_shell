@@ -174,13 +174,13 @@ char *convert_number(long int, int, int);
 void remove_comments(char *);
 
 /* builtin.c */
-int _myexit(info_t *);
-int _mycd(info_t *);
-int _myhelp(info_t *);
+int exit(info_t *);
+int cd(info_t *);
+int help(info_t *);
 
 /* builtin1.c */
-int _myhistory(info_t *);
-int _myalias(info_t *);
+int _history(info_t *);
+int _alias(info_t *);
 
 /* getenv.c */
 char **get_environ(info_t *);
