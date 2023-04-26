@@ -1,12 +1,12 @@
 #include "header.h"
 
 /**
- * str_cpy - copies a string
- * @dest: destination
- * @src: source
- * Return: pointer to destination
+ * _strcpy - copies a string
+ *@dest: the destination
+ *@src: the source
+ *Return: pointer to destination
  */
-char *str_cpy(char *dest, char *src)
+char *_strcpy(char *dest, char *src)
 {
 	int i = 0;
 
@@ -22,11 +22,11 @@ char *str_cpy(char *dest, char *src)
 }
 
 /**
- * str_dup - duplicates a string
- * @str: string to duplicate
- * Return: pointer to the duplicated string
+ * _strdup - duplicates a string
+ *@str: string to duplicate
+ *Return: pointer to the duplicated string
  */
-char *str_dup(const char *str)
+char *_strdup(const char *str)
 {
 	int length = 0;
 	char *ret;
@@ -35,7 +35,7 @@ char *str_dup(const char *str)
 		return (NULL);
 	while (*str++)
 		length++;
-	ret = _malloc(sizeof(char) * (length + 1));
+	ret = malloc(sizeof(char) * (length + 1));
 	if (!ret)
 		return (NULL);
 	for (length++; length--;)
@@ -44,11 +44,11 @@ char *str_dup(const char *str)
 }
 
 /**
- *puts - input string
- *@str: string to be printed
- * Return: Nothing
+ * _puts - prints an input string
+ *@str: the string to be printed
+ *Return: Nothing
  */
-void puts(char *str)
+void _puts(char *str)
 {
 	int i = 0;
 
@@ -62,10 +62,10 @@ void puts(char *str)
 }
 
 /**
- * _putchar - character c to stdout
- * @c: character to print
- * Return: On success 1.
- * On error, -1 is returned, and errno is set appropriately.
+ * _putchar - writes the character c to stdout
+ *@c: The character to print
+ *Return: On success 1.
+ *On error, -1 is returned, and errno is set appropriately.
  */
 int _putchar(char c)
 {
@@ -81,4 +81,3 @@ int _putchar(char c)
 		buf[i++] = c;
 	return (1);
 }
-
