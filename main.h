@@ -199,10 +199,10 @@ int _setenv(info_t *, char *, char *);
 
 /* ---environ.c--- */
 char *_getenv(info_t *, const char *);
-int _myenv(info_t *);
-int _mysetenv(info_t *);
-int _myunsetenv(info_t *);
-int populate_env_list(info_t *);
+int _byenv(info_t *);
+int _bysetenv(info_t *);
+int _byunsetenv(info_t *);
+int expand_env_list(info_t *);
 
 /* ---history.c--- */
 char *get_history_file(info_t *info);
@@ -211,7 +211,7 @@ int read_history(info_t *info);
 int build_history_list(info_t *info, char *buf, int linecount);
 int renumber_history(info_t *info);
 
-/* ---exits.c--- */
+/* ---exit.c--- */
 char *_strncpy(char *, char *, int);
 char *_strncat(char *, char *, int);
 char *_strchr(char *, char);

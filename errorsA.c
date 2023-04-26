@@ -1,11 +1,11 @@
 #include "header.h"
 
 /**
- * rputs - input string
- * @str: string
- * Return: Nothing
+ *_eputs - prints an input string
+ *@str: the string to be printed
+ *Return: Nothing
  */
-void rputs(char *str)
+void _eputs(char *str)
 {
 	int i = 0;
 
@@ -19,12 +19,12 @@ void rputs(char *str)
 }
 
 /**
- * rputchar - writes the character c
- * @c: character to print
- * Return: On success 1.
- * On error, -1 is returned, and errno is set appropriately.
+ * _eputchar - writes the character c to stderr
+ *@c: The character to print
+ *Return: On success 1.
+ *On error, -1 is returned, and errno is set appropriately.
  */
-int rputchar(char c)
+int _eputchar(char c)
 {
 	static int i;
 	static char buf[WRITE_BUF_SIZE];
@@ -40,13 +40,13 @@ int rputchar(char c)
 }
 
 /**
- * putfd - writes the character c to given fd
- * @c: character to print
- * @fd: filedescriptor to write to
- * Return: On success 1.
- * On error, -1 is returned, and errno is set appropriately.
+ * _putfd - writes the character c to given fd
+ *@c: The character to print
+ *@fd: The filedescriptor to write to
+ *Return: On success 1.
+ *On error, -1 is returned, and errno is set appropriately.
  */
-int putfd(char c, int fd)
+int _putfd(char c, int fd)
 {
 	static int i;
 	static char buf[WRITE_BUF_SIZE];
@@ -62,13 +62,12 @@ int putfd(char c, int fd)
 }
 
 /**
- * putsfd - prints an input string
- * @str: string to be printed
- * @fd: filedescriptor to write to
- *
- * Return: the number of chars put
+ *_putsfd - input string
+ *@str: the string to be printed
+ *@fd: the filedescriptor to write to
+ *Return: the number of chars put
  */
-int putsfd(char *str, int fd)
+int _putsfd(char *str, int fd)
 {
 	int i = 0;
 

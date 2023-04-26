@@ -1,12 +1,12 @@
 #include "header.h"
 
 /**
- * _alias - the alias builtin (man alias)
- * @info: Structure containing potential arguments. Used to maintain
- *          constant function prototype.
- *  Return: Always 0
+ * _malias - alias builtin (man alias)
+ *@info: potential arguments, to maintain
+ *constant function prototype.
+ *Return: Always 0
  */
-int _alias(info_t *info)
+int _malias(info_t *info)
 {
 	int i = 0;
 	char *p = NULL;
@@ -35,33 +35,13 @@ int _alias(info_t *info)
 }
 
 /**
- * set_alias - alias to string
- * @info: parameter struct
- * @str: string 
- * Return: Always 0 on success, 1 on error
+ * _mhistory - history list, one command by line, preceded
+ *with line numbers, starting at 0.
+ *@info: potential arguments. to maintain
+ *constant function prototype.
+ *Return: Always 0
  */
-int set_alias(info_t *info, char *str)
-{
-	char *p;
-
-	p = _strchr(str, '=');
-	if (!p)
-		return (1);
-	if (!*++p)
-		return (unset_alias(info, str));
-
-	unset_alias(info, str);
-	return (add_node_end(&(info->alias), str, 0) == NULL);
-}
-
-/**
- * _history - the history list, one command by line, preceded
- *              with line numbers, starting at 0.
- * @info: potential arguments. Used to maintain
- *        constant function prototype.
- *  Return: Always 0
- */
-int _history(info_t *info)
+int _mhistory(info_t *info)
 {
 	print_list(info->history);
 	return (0);
@@ -69,7 +49,7 @@ int _history(info_t *info)
 
 /**
  * unset_alias - alias to string
- * @info: parameter struct
+ * @info: parameter
  * @str: string
  * Return: Always 0 on success, 1 on error
  */
@@ -90,10 +70,29 @@ int unset_alias(info_t *info, char *str)
 }
 
 /**
- * print_alias - to prints an alias string
- * @node: alias node
- *
- * Return: Always 0 on success, 1 on error
+ * set_alias - alias to string
+ *@info: parameter
+ *@str: string
+ *Return: Always 0 on success, or 1 on error
+ */
+int set_alias(info_t *info, char *str)
+{
+	char *p;
+
+	p = _strchr(str, '=');
+	if (!p)
+		return (1);
+	if (!*++p)
+		return (unset_alias(info, str));
+
+	unset_alias(info, str);
+	return (add_node_end(&(info->alias), str, 0) == NULL);
+}
+
+/**
+ * print_alias - to print an alias
+ *@node: alias node
+ * Return: Always 0 on success, or 1 on error
  */
 int print_alias(list_t *node)
 {
