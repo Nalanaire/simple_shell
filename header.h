@@ -112,7 +112,7 @@ typedef struct builtin
 } builtin_table;
 
 /* ---memory.c--- */
-int bfree(void **);
+int sfree(void **);
 
 /* ---loophsh.c--- */
 int loophsh(char **);
@@ -218,7 +218,7 @@ char *_strchr(char *, char);
 
 /* ---realloc.c--- */
 char *_memset(char *, char, unsigned int);
-void ffree(char **);
+void tfree(char **);
 void *_realloc(void *, unsigned int, unsigned int);
 
 /* ---tokenizer.c--- */
