@@ -1,11 +1,54 @@
 #include "header.h"
 
 /**
- * _get_input - line minus the newline
- * @info: parameter
- * Return: bytes read
+ * input_buf - buffers chained commands
+ *@info: parameter struct
+ *@buf: address of buffer
+ *@len: address of len var
+ *Return: bytes read
  */
-ssize_t _get_input(info_t *info)
+ssize_t input_buf(info_t *info, char **buf, size_t *len)
+{
+	ssize_t r = 0;
+	size_t len_p = 0;
+
+	if (!*len) /* if nothing left in the buffer, fill it */
+	{
+		/*bfree((void **)info->cmd_buf);*/
+		free(*buf);
+		*buf = NULL;
+		signal(SIGINT, sigintHandler);
+#if USE_GETLINE
+		r = getline(buf, &len_p, stdin);
+#else
+		r = _getline(info, buf, &len_p);
+#endif
+		if (r > 0)
+		{
+			if ((*buf)[r - 1] == '\n')
+			{
+				(*buf)[r - 1] = '\0'; /* remove trailing newline */
+				r--;
+			}
+			info->linecount_flag = 1;
+			remove_comments(*buf);
+			build_history_list(info, *buf, info->histcount++);
+			/* if (_strchr(*buf, ';')) is this a command chain? */
+			{
+				*len = r;
+				info->cmd_buf = buf;
+			}
+		}
+	}
+	return (r);
+}
+
+/**
+ * get_input - gets a line minus the newline
+ *@info: parameter struct
+ *Return: bytes read
+ */
+ssize_t get_input(info_t *info)
 {
 	static char *buf; /* the ';' command chain buffer */
 	static size_t i, j, len;
@@ -45,25 +88,13 @@ ssize_t _get_input(info_t *info)
 }
 
 /**
- * _siginthandler - blocks ctrl-C
- * @sig_num: signal number
- * Return: void
+ * read_buf - reads a buffer
+ *@info: parameter struct
+ *@buf: buffer
+ *@i: size
+ *Return: r
  */
-void _siginthandler(__attribute__((unused))int sig_num)
-{
-	_puts("\n");
-	_puts("$ ");
-	_putchar(BUF_FLUSH);
-}
-
-/**
- * _read_buf - to read a buffer
- * @info: parameter
- * @buf: buffer
- * @i: size
- * Return: r
- */
-ssize_t _read_buf(info_t *info, char *buf, size_t *i)
+ssize_t read_buf(info_t *info, char *buf, size_t *i)
 {
 	ssize_t r = 0;
 
@@ -76,13 +107,13 @@ ssize_t _read_buf(info_t *info, char *buf, size_t *i)
 }
 
 /**
- * getline - gets the next line of input from STDIN
- * @info: parameter
- * @ptr: pointer to buffer, preallocated or NULL
- * @length: size
- * Return: s
+ * _getline - gets the next line of input from STDIN
+ *@info: parameter struct
+ *@ptr: address of pointer to buffer, preallocated or NULL
+ *@length: size of preallocated ptr buffer if not NULL
+ *Return: s
  */
-int getline(info_t *info, char **ptr, size_t *length)
+int _getline(info_t *info, char **ptr, size_t *length)
 {
 	static char buf[READ_BUF_SIZE];
 	static size_t i, len;
@@ -122,44 +153,13 @@ int getline(info_t *info, char **ptr, size_t *length)
 }
 
 /**
- * _input_buf - buffers commands
- * @info: parameter
- * @buf: address
- * @len: address
- * Return: bytes read
+ * sigintHandler - blocks ctrl-C
+ *@sig_num: the signal number
+ *Return: void
  */
-ssize_t _input_buf(info_t *info, char **buf, size_t *len)
+void sigintHandler(__attribute__((unused))int sig_num)
 {
-	ssize_t r = 0;
-	size_t len_p = 0;
-
-	if (!*len) /* if nothing left in the buffer, fill it */
-	{
-		/*bfree((void **)info->cmd_buf);*/
-		free(*buf);
-		*buf = NULL;
-		signal(SIGINT, sigintHandler);
-#if USE_GETLINE
-		r = getline(buf, &len_p, stdin);
-#else
-		r = _getline(info, buf, &len_p);
-#endif
-		if (r > 0)
-		{
-			if ((*buf)[r - 1] == '\n')
-			{
-				(*buf)[r - 1] = '\0'; /* remove trailing newline */
-				r--;
-			}
-			info->linecount_flag = 1;
-			remove_comments(*buf);
-			build_history_list(info, *buf, info->histcount++);
-			/* if (_strchr(*buf, ';')) is this a command chain? */
-			{
-				*len = r;
-				info->cmd_buf = buf;
-			}
-		}
-	}
-	return (r);
+	_puts("\n");
+	_puts("$ ");
+	_putchar(BUF_FLUSH);
 }
