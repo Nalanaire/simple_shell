@@ -1,9 +1,47 @@
 #include "header.h"
 
 /**
- *_atoi - string to convert to integer
- *@s: string
- *Return: converted number, or 0 if no number in string,
+ * interactive - returns true if shell is interactive mode
+ *@info: struct address
+ *Return: 1 if interactive mode, 0 otherwise
+ */
+int interactive(info_t *info)
+{
+	return (isatty(STDIN_FILENO) && info->readfd <= 2);
+}
+
+/**
+ * is_delim - checks if character is a delimeter
+ *@c: the char to check
+ *@delim: the delimeter string
+ *Return: 1 if true, 0 if false
+ */
+int is_delim(char c, char *delim)
+{
+	while (*delim)
+		if (*delim++ == c)
+			return (1);
+	return (0);
+}
+
+/**
+ * _isalpha - checks for alphabetic character
+ *@c: The character to input
+ *Return: 1 if c is alphabetic, 0 otherwise
+ */
+
+int _isalpha(int c)
+{
+	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
+		return (1);
+	else
+		return (0);
+}
+
+/**
+ * _atoi - converts a string to an integer
+ *@s: the string to be converted
+ *Return: 0 if no numbers in string, converted number otherwise
  */
 
 int _atoi(char *s)
@@ -32,42 +70,4 @@ int _atoi(char *s)
 		output = result;
 
 	return (output);
-}
-
-/**
- * interactive - returns true if shell is interactive mode
- * @info: struct address
- * Return: 1 if interactive mode, 0 otherwise
- */
-int interactive(info_t *info)
-{
-	return (isatty(STDIN_FILENO) && info->readfd <= 2);
-}
-
-/**
- * is_delim - character to check if is a delimeter
- * @c: char to check
- * @delim: delimeter string
- * Return: 1 if true, 0 if false
- */
-int is_delim(char c, char *delim)
-{
-	while (*delim)
-		if (*delim++ == c)
-			return (1);
-	return (0);
-}
-
-/**
- *_isalpha - for alphabetic character
- *@c: character
- *Return: 1 if c is alphabetic, or 0 otherwise
- */
-
-int _isalpha(int c)
-{
-	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
-		return (1);
-	else
-		return (0);
 }
