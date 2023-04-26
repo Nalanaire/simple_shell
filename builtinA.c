@@ -1,13 +1,13 @@
-#include "header.h"
+#include "headera.h"
 
 /**
- * exit - exits the shell
- * @info: Structure that containing potential arguments. Used to maintain
- *          constant function prototype.
- *  Return: exits with a given exit status
- *         (0) if info.argv[0] != "exit"
+ * _mexit - to exit the shell
+ *@info: potential arguments. to maintain
+ *constant function prototype.
+ *Return: exits with a given exit status
+ *(0) if info.argv[0] != "exit"
  */
-int exit(info_t *info)
+int _mexit(info_t *info)
 {
 	int exitcheck;
 
@@ -30,12 +30,12 @@ int exit(info_t *info)
 }
 
 /**
- * cd - changes the current directory of the process
- * @info: Structure containing potential arguments. Used to maintain
- *          constant function prototype.
- *  Return: Always 0
+ * _mcd - directory of the process
+ *@info: potential arguments. to maintain
+ *constant function prototype.
+ *Return: Always 0
  */
-int cd(info_t *info)
+int _mcd(info_t *info)
 {
 	char *s, *dir, buffer[1024];
 	int chdir_ret;
@@ -44,7 +44,8 @@ int cd(info_t *info)
 	if (!s)
 		_puts("TODO: >>getcwd failure emsg here<<\n");
 	if (!info->argv[1])
-	{		dir = _getenv(info, "HOME=");
+	{
+		dir = _getenv(info, "HOME=");
 		if (!dir)
 			chdir_ret = /* TODO: what should this be? */
 				chdir((dir = _getenv(info, "PWD=")) ? dir : "/");
@@ -79,12 +80,12 @@ int cd(info_t *info)
 }
 
 /**
- * help - changes the current directory of the process
- * @info: Structure that containing potential arguments. Used to maintain
- *          constant function prototype.
- *  Return: Always 0
+ * _mhelp - directory of the process
+ *@info: potential arguments. to maintain
+ *constant function prototype.
+ *Return: Always 0
  */
-int help(info_t *info)
+int _mhelp(info_t *info)
 {
 	char **arg_array;
 
