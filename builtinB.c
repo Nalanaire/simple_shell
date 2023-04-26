@@ -26,7 +26,7 @@ int _malias(info_t *info)
 	{
 		p = _strchr(info->argv[i], '=');
 		if (p)
-			set_alias(info, info->argv[i]);
+			set_malias(info, info->argv[i]);
 		else
 			print_list(node_starts_with(info->alias, info->argv[i], '='));
 	}
